@@ -31,3 +31,26 @@ def guess_code():
             break
 
     return guess
+
+
+def check_code(guess, real_code):
+    colour_counts = {}
+    correct_pos = 0
+    incorrect_pos = 0
+
+    for colour in real_code:
+        if colour not in colour_counts:
+            colour_counts[colour] = 0
+        colour_counts[colour] += 1
+
+    for guess_colour, real_colour in zip(guess, real_code):
+        if guess_colour == real_colour:
+            correct_pos += 1
+            colour_counts[guess_colour] -= 1
+
+    for guess_colour, real_colour in zip(guess, real_code):
+        if guess_colour in colour_counts and colour_counts[guess_colour] > 0:
+            incorrect_pos += 1
+            colour_counts[guess_colour] -= 1
+
+    return correct_pos, incorrect_pos
