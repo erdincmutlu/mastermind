@@ -1,14 +1,33 @@
 import random
 
-COLORS = ["R", "G", "B", "Y", "W", "O"]
+COLOURS = ["R", "G", "B", "Y", "W", "O"]
 TRIES = 10
 CODE_LENGTH = 4
+
 
 def generate_code():
     code = []
 
     for _ in range(CODE_LENGTH):
-        color = random.choice(COLORS)
-        code.append(color)
+        colour = random.choice(COLOURS)
+        code.append(colour)
 
     return code
+
+
+def guess_code():
+    while True:
+        guess = input("Guess: ").upper().split(" ")
+
+        if guess != CODE_LENGTH:
+            print(f"You must guess {CODE_LENGTH} colours.")
+            continue
+
+        for colour in guess:
+            if colour not in COLOURS:
+                print(f"Invalid colour: {colour}. Try again")
+                break
+        else:
+            break
+
+    return guess
