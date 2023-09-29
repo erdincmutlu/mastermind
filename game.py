@@ -19,7 +19,7 @@ def guess_code():
     while True:
         guess = input("Guess: ").upper().split(" ")
 
-        if guess != CODE_LENGTH:
+        if len(guess) != CODE_LENGTH:
             print(f"You must guess {CODE_LENGTH} colours.")
             continue
 
@@ -54,3 +54,27 @@ def check_code(guess, real_code):
             colour_counts[guess_colour] -= 1
 
     return correct_pos, incorrect_pos
+
+
+def game():
+    print(f"Welcome to mastermind, you have {TRIES} tries to guess the code...")
+    print("The vaalid colours are", *COLOURS)
+
+    code = generate_code()
+    for attempts in range(1, TRIES + 1):
+        guess = guess_code()
+        correct_pos, incorrect_pos = check_code(guess, code)
+        if correct_pos == CODE_LENGTH:
+            print(f"You guessed the code in {attempts} tries!")
+            break
+
+        print(
+            f"Correct Positions: {correct_pos} | Incorrect Positions: {incorrect_pos}"
+        )
+
+    else:
+        print("You ran out of tries, the code was:", *code)
+
+
+if __name__ == "__main__":
+    game()
